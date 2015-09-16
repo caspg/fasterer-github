@@ -3,6 +3,8 @@ require 'gh_fasterer/api_wrapper'
 
 describe GhFasterer::ApiWrapper do
   describe '#contents' do
+    subject { described_class.new(owner, repo).contents(path) }
+
     let(:owner) { 'owner' }
     let(:repo) { 'repo' }
 
@@ -14,7 +16,7 @@ describe GhFasterer::ApiWrapper do
       let(:path) { nil }
 
       it 'makes request with correct url' do
-        described_class.new(owner, repo, path).contents
+        subject
 
         url = 'https://api.github.com/repos/owner/repo/contents/'
         expect(HTTParty).to have_received(:get).with(url)
@@ -25,7 +27,7 @@ describe GhFasterer::ApiWrapper do
       let(:path) { 'path/to/file.rb' }
 
       it 'makes request with correct url' do
-        described_class.new(owner, repo, path).contents
+        subject
 
         url = 'https://api.github.com/repos/owner/repo/contents/path/to/file.rb'
         expect(HTTParty).to have_received(:get).with(url)
