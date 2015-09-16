@@ -22,10 +22,8 @@ describe GhFasterer::ApiWrapper do
         expect(HTTParty).to have_received(:get).with(url)
       end
 
-      it 'returns an array with files and folders data' do
-        VCR.use_cassette('folder_data') do
-          expect(subject.parsed_response.class).to eq(Array)
-        end
+      it 'returns an array with repo/folder data', vcr: { cassette_name: 'folder_data' } do
+        expect(subject.parsed_response.class).to eq(Array)
       end
     end
 
@@ -39,10 +37,8 @@ describe GhFasterer::ApiWrapper do
         expect(HTTParty).to have_received(:get).with(url)
       end
 
-      it 'returns a hash with file data' do
-        VCR.use_cassette('file_data') do
-          expect(subject.parsed_response.class).to eq(Hash)
-        end
+      it 'returns a hash with file data', vcr: { cassette_name: 'file_data' } do
+        expect(subject.parsed_response.class).to eq(Hash)
       end
     end
   end
