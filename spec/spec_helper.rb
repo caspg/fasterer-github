@@ -2,6 +2,7 @@ $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'gh_fasterer'
 require 'webmock/rspec'
 require 'vcr'
+require 'pry'
 
 class StubbedResponse
   def code
