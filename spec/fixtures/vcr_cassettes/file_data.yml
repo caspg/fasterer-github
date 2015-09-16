@@ -1,0 +1,74 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://api.github.com/repos/caspg/gh_fasterer/contents/lib/gh_fasterer.rb
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - GitHub.com
+      Date:
+      - Wed, 16 Sep 2015 17:01:03 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Transfer-Encoding:
+      - chunked
+      Status:
+      - 200 OK
+      X-Ratelimit-Limit:
+      - '60'
+      X-Ratelimit-Remaining:
+      - '57'
+      X-Ratelimit-Reset:
+      - '1442426433'
+      Cache-Control:
+      - public, max-age=60, s-maxage=60
+      Last-Modified:
+      - Tue, 08 Sep 2015 19:35:41 GMT
+      Etag:
+      - W/"bf80726bfeed8137b6e2857717dd9820"
+      Vary:
+      - Accept
+      - Accept-Encoding
+      X-Github-Media-Type:
+      - github.v3
+      X-Xss-Protection:
+      - 1; mode=block
+      X-Frame-Options:
+      - deny
+      Content-Security-Policy:
+      - default-src 'none'
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Access-Control-Expose-Headers:
+      - ETag, Link, X-GitHub-OTP, X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset,
+        X-OAuth-Scopes, X-Accepted-OAuth-Scopes, X-Poll-Interval
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Github-Request-Id:
+      - B2B58DBC:C027:62BA7C8:55F9A04E
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubdomains; preload
+      X-Content-Type-Options:
+      - nosniff
+      X-Served-By:
+      - a7f8a126c9ed3f1c4715a34c0ddc7290
+    body:
+      encoding: UTF-8
+      string: '{"name":"gh_fasterer.rb","path":"lib/gh_fasterer.rb","sha":"890b7b75eac34c3e9cc2a705d2015a6b9ec70f67","size":80,"url":"https://api.github.com/repos/caspg/gh_fasterer/contents/lib/gh_fasterer.rb?ref=master","html_url":"https://github.com/caspg/gh_fasterer/blob/master/lib/gh_fasterer.rb","git_url":"https://api.github.com/repos/caspg/gh_fasterer/git/blobs/890b7b75eac34c3e9cc2a705d2015a6b9ec70f67","download_url":"https://raw.githubusercontent.com/caspg/gh_fasterer/master/lib/gh_fasterer.rb","type":"file","content":"cmVxdWlyZSAnZ2hfZmFzdGVyZXIvdmVyc2lvbicKCm1vZHVsZSBHaEZhc3Rl\ncmVyCiAgIyBZb3VyIGNvZGUgZ29lcyBoZXJlLi4uCmVuZAo=\n","encoding":"base64","_links":{"self":"https://api.github.com/repos/caspg/gh_fasterer/contents/lib/gh_fasterer.rb?ref=master","git":"https://api.github.com/repos/caspg/gh_fasterer/git/blobs/890b7b75eac34c3e9cc2a705d2015a6b9ec70f67","html":"https://github.com/caspg/gh_fasterer/blob/master/lib/gh_fasterer.rb"}}'
+    http_version:
+  recorded_at: Wed, 16 Sep 2015 17:01:03 GMT
+recorded_with: VCR 2.9.0
