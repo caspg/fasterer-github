@@ -8,7 +8,7 @@ describe GhFasterer::GhTraverser do
     let!(:traverser) { described_class.new('caspg', 'gh_fasterer', '') }
     let!(:traverser_content) do
       traverser.traverse
-      traverser.urls_with_content
+      traverser.collected_data
     end
 
     it 'returns an array with hashes containing correct attributes' do

@@ -2,13 +2,13 @@ require_relative 'api_wrapper'
 
 module GhFasterer
   class GhTraverser
-    attr_reader :urls_with_content
+    attr_reader :collected_data
 
     def initialize(owner, repo, path)
       @owner = owner
       @repo = repo
       @path = path.to_s
-      @urls_with_content = []
+      @collected_data = []
     end
 
     def traverse
@@ -35,7 +35,7 @@ module GhFasterer
 
     def store_data(response)
       file_data = { url: response['url'], content64: response['content'], name: response['name'] }
-      @urls_with_content << file_data
+      @collected_data << file_data
     end
 
     def match_regex?(file_name)
