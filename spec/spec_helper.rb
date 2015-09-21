@@ -4,6 +4,12 @@ require 'webmock/rspec'
 require 'vcr'
 require 'pry'
 
+def RSpec.root
+  @root_path = Pathname.new(File.dirname(__FILE__))
+end
+
+Dir[RSpec.root.join('support/**/*.rb')].each { |f| require f }
+
 class StubbedResponse
   def code
     200
