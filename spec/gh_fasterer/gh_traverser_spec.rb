@@ -6,15 +6,15 @@ describe GhFasterer::GhTraverser do
 
   context 'when traversing repo', vcr: { cassette_name: 'traversed_repo' } do
     let!(:traverser) { described_class.new('caspg', 'gh_fasterer', '') }
-    let!(:traverser_content) do
+    let!(:traverser_results) do
       traverser.traverse
       traverser.collected_data
     end
 
     it 'returns an array with hashes containing correct attributes' do
-      expect(traverser_content.class).to eq(Array)
+      expect(traverser_results.class).to eq(Array)
 
-      traverser_content.each do |item|
+      traverser_results.each do |item|
         expect(item.class).to eq(Hash)
         expect(item.keys).to eq(attributes)
 
@@ -25,7 +25,7 @@ describe GhFasterer::GhTraverser do
     end
 
     it 'contains only ruby files' do
-      files_names = traverser_content.map { |i| i[:name] }
+      files_names = traverser_results.map { |i| i[:name] }
       files_names.each do |name|
         expect(name =~ /.rb$/).not_to eq(nil)
       end
