@@ -7,12 +7,14 @@ module GhFasterer
       end
     end
 
-    def add_errors
+    def add_errors(url, file_name)
+      errors << { url: url, file_name: file_name }
     end
 
     def result
       {
-        fasterer_offences: fasterer_offences
+        fasterer_offences: fasterer_offences,
+        errors: errors
       }
     end
 
@@ -20,6 +22,10 @@ module GhFasterer
 
     def fasterer_offences
       @fasterer_offenses ||= {}
+    end
+
+    def errors
+      @errors ||= []
     end
   end
 end
