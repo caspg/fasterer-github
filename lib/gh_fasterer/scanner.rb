@@ -22,12 +22,15 @@ module GhFasterer
 
     attr_reader :owner, :repo, :path
 
+    def traverser
+      @traverser ||= GhFasterer::GhTraverser.new(owner, repo, path)
+    end
+
     def output_composer
       @output_composer ||= GhFasterer::OutputComposer.new
     end
 
     def traverse_and_collect_data
-      traverser = GhFasterer::GhTraverser.new(owner, repo, path)
       traverser.traverse
       traverser.collected_data
     end
