@@ -17,7 +17,7 @@ module GhFasterer
     end
 
     def api_errors
-      @api_errors ||= {}
+      @api_errors ||= []
     end
 
     private
