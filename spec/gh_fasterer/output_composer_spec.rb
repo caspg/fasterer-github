@@ -2,6 +2,8 @@ require 'spec_helper'
 require 'gh_fasterer/output_composer'
 
 describe GhFasterer::OutputComposer do
+  subject { described_class.new }
+
   let(:offences) do
     {
       hash_merge_bang_vs_hash_brackets: [10, 19],
@@ -15,8 +17,6 @@ describe GhFasterer::OutputComposer do
   let(:another_file_name) { 'another file name' }
 
   describe '#add_offences' do
-    subject { described_class.new }
-
     let(:expected_result) do
       {
         fasterer_offences: {
@@ -28,7 +28,8 @@ describe GhFasterer::OutputComposer do
             { file_name: 'another file name', url: 'another_url', lines: [13] }
           ]
         },
-        errors: []
+        errors: [],
+        api_errors: []
       }
     end
 
@@ -40,21 +41,38 @@ describe GhFasterer::OutputComposer do
   end
 
   describe '#add_errors' do
-    subject { described_class.new }
-
     let(:expected_result) do
       {
         fasterer_offences: {},
         errors: [
           { url: url, file_name: file_name },
           { url: another_url, file_name: another_file_name }
-        ]
+        ],
+        api_errors: []
       }
     end
 
     it 'returns correct result' do
       subject.add_errors(url, file_name)
       subject.add_errors(another_url, another_file_name)
+      expect(subject.result).to eq(expected_result)
+    end
+  end
+
+  describe '#add_api_errors' do
+    let(:api_errors) { [{ code: 404, body: 'some 404 msg' }] }
+    let(:expected_result) do
+      {
+        fasterer_offences: {},
+        errors: [],
+        api_errors: [
+          { code: 404, body: 'some 404 msg' }
+        ]
+      }
+    end
+
+    it 'returns correct result' do
+      subject.add_api_errors(api_errors)
       expect(subject.result).to eq(expected_result)
     end
   end

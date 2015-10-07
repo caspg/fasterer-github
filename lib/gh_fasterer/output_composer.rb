@@ -11,10 +11,15 @@ module GhFasterer
       errors << { url: url, file_name: file_name }
     end
 
+    def add_api_errors(new_api_errors)
+      new_api_errors.each { |e| api_errors << e }
+    end
+
     def result
       {
         fasterer_offences: fasterer_offences,
-        errors: errors
+        errors: errors,
+        api_errors: api_errors
       }
     end
 
@@ -26,6 +31,10 @@ module GhFasterer
 
     def errors
       @errors ||= []
+    end
+
+    def api_errors
+      @api_errors ||= []
     end
   end
 end
