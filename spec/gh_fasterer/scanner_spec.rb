@@ -11,6 +11,7 @@ describe GhFasterer::Scanner do
     allow(GhFasterer::GhTraverser).to receive(:new)
       .with('owner', 'repo', 'path').and_return(traverser)
     allow(traverser).to receive(:traverse)
+    allow(traverser).to receive(:api_errors).and_return([])
     allow(traverser).to receive(:collected_data).and_return(collected_data)
   end
 
@@ -23,7 +24,7 @@ describe GhFasterer::Scanner do
     result = subject.result
 
     expect(result.class).to eq(Hash)
-    expect(result.keys).to eq([:fasterer_offences, :errors])
+    expect(result.keys).to eq([:fasterer_offences, :errors, :api_errors])
     expect(result[:fasterer_offences].keys).to eq(detected_offences)
   end
 end

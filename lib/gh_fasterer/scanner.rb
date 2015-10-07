@@ -32,6 +32,7 @@ module GhFasterer
 
     def traverse_and_collect_data
       traverser.traverse
+      output_composer.add_api_errors(traverser.api_errors) if traverser.api_errors.any?
       traverser.collected_data
     end
 
