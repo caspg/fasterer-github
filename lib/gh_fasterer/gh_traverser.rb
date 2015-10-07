@@ -43,7 +43,7 @@ module GhFasterer
 
     def store_api_error(response)
       response_code = response.code
-      api_errors['errors'] << { code: response_code, msg_body: response.body }
+      api_errors << { code: response_code, msg_body: response.body }
       throw(:rate_limit) if rate_limit_error?(response)
     end
 

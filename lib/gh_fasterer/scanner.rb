@@ -1,5 +1,6 @@
 require 'gh_fasterer/gh_traverser'
 require 'gh_fasterer/output_composer'
+require 'gh_fasterer/analyzer_extension'
 
 module GhFasterer
   class Scanner
@@ -14,7 +15,7 @@ module GhFasterer
       data.each { |d| analyze_code(d) }
     end
 
-    def result
+    def results
       output_composer.result
     end
 

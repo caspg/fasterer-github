@@ -1,4 +1,5 @@
 require 'gh_fasterer/version'
+require 'gh_fasterer/scanner'
 
 module GhFasterer
   class << self
