@@ -31,4 +31,24 @@ describe GhFasterer::GhTraverser do
       end
     end
   end
+
+  context 'when rate limit api error is encountered' do
+    before do
+      wrapper = double
+      allow(GhFasterer::ApiWrapper).to receive(:new) { wrapper }
+      allow(wrapper).to receive(:contents) { RateLimitResponse.new }
+    end
+
+    let!(:traverser) { described_class.new('caspg', 'gh_fasterer', 'test/path.rb') }
+    let!(:traverser_api_errors) do
+      traverser.traverse
+      traverser.api_errors
+    end
+
+    it 'returns an array containing errors' do
+      expect(traverser_api_errors.class).to eq(Array)
+      expect(traverser_api_errors[0].keys).to eq([:code, :msg_body])
+      expect(traverser_api_errors[0][:code]).to eq(403)
+    end
+  end
 end
