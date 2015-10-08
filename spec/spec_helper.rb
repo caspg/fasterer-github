@@ -22,7 +22,5 @@ VCR.configure do |c|
   c.configure_rspec_metadata!
 end
 
-if ENV['TRAVIS']
-  require 'codeclimate-test-reporter'
-  CodeClimate::TestReporter.start
-end
+require 'codeclimate-test-reporter'
+CodeClimate::TestReporter.start
