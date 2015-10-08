@@ -30,7 +30,7 @@ module GhFasterer
 
     def collect_data(path)
       response = wrapper.contents(path)
-      return store_api_error(response) unless response.code < 400
+      return store_api_error(response, path) unless response.code < 400
       parsed_response = response.parsed_response
 
       if parsed_response.is_a?(Hash)
@@ -41,9 +41,9 @@ module GhFasterer
       end
     end
 
-    def store_api_error(response)
+    def store_api_error(response, path)
       response_code = response.code
-      api_errors << { code: response_code, msg_body: response.body }
+      api_errors << { code: response_code, msg_body: response.body, path: path }
       throw(:rate_limit) if rate_limit_error?(response)
     end
 

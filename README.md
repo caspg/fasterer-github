@@ -81,7 +81,7 @@ example output when parser encounter any error and api return error code:
   :repo_name => 'repo',
   :fasterer_offences => {},
   :errors => [{ path: 'path/to/file.rb' }],
-  :api_errors => [{ code: 404, msg_body: 'some message from github api' }]
+  :api_errors => [{ code: 404, msg_body: 'some message from github api', path: 'path/to/file.rb' }]
 }
 ```
 

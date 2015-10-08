@@ -47,7 +47,7 @@ describe GhFasterer::GhTraverser do
 
     it 'returns an array containing errors' do
       expect(traverser_api_errors.class).to eq(Array)
-      expect(traverser_api_errors[0].keys).to eq([:code, :msg_body])
+      expect(traverser_api_errors[0].keys).to eq([:code, :msg_body, :path])
       expect(traverser_api_errors[0][:code]).to eq(403)
     end
   end
