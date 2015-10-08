@@ -1,6 +1,5 @@
 ## TODO
 - update Readme
-- add `repo_info: { owner: 'owner_name', repo: 'repo_name' }` to output hash
 - change
 `url: 'https://api.github.com/repos/owner/repo/contents/path/to/file.rb?ref=master'`
 to `path: 'path/to/file.rb'`

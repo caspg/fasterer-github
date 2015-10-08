@@ -22,9 +22,10 @@ describe GhFasterer::Scanner do
   it 'analyze files and returns correct result' do
     subject.run
     result = subject.results
+    result_keys = [:repo_owner, :repo_name, :fasterer_offences, :errors, :api_errors]
 
     expect(result.class).to eq(Hash)
-    expect(result.keys).to eq([:fasterer_offences, :errors, :api_errors])
+    expect(result.keys).to eq(result_keys)
     expect(result[:fasterer_offences].keys).to eq(detected_offences)
   end
 end

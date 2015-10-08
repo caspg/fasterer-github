@@ -28,7 +28,7 @@ module GhFasterer
     end
 
     def output_composer
-      @output_composer ||= GhFasterer::OutputComposer.new
+      @output_composer ||= GhFasterer::OutputComposer.new(owner, repo)
     end
 
     def traverse_and_collect_data

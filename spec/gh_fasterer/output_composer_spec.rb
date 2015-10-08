@@ -2,8 +2,10 @@ require 'spec_helper'
 require 'gh_fasterer/output_composer'
 
 describe GhFasterer::OutputComposer do
-  subject { described_class.new }
+  subject { described_class.new(repo_owner, repo_name) }
 
+  let(:repo_owner) { 'repo_owner' }
+  let(:repo_name) { 'repo_name' }
   let(:offences) do
     {
       hash_merge_bang_vs_hash_brackets: [10, 19],
@@ -19,6 +21,8 @@ describe GhFasterer::OutputComposer do
   describe '#add_offences' do
     let(:expected_result) do
       {
+        repo_owner: repo_owner,
+        repo_name: repo_name,
         fasterer_offences: {
           hash_merge_bang_vs_hash_brackets: [
             { file_name: 'file name', url: 'some_url', lines: [10, 19] }
@@ -43,6 +47,8 @@ describe GhFasterer::OutputComposer do
   describe '#add_errors' do
     let(:expected_result) do
       {
+        repo_owner: repo_owner,
+        repo_name: repo_name,
         fasterer_offences: {},
         errors: [
           { url: url, file_name: file_name },
@@ -63,6 +69,8 @@ describe GhFasterer::OutputComposer do
     let(:api_errors) { [{ code: 404, body: 'some 404 msg' }] }
     let(:expected_result) do
       {
+        repo_owner: repo_owner,
+        repo_name: repo_name,
         fasterer_offences: {},
         errors: [],
         api_errors: [

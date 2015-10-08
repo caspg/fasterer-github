@@ -1,5 +1,10 @@
 module GhFasterer
   class OutputComposer
+    def initialize(owner, repo)
+      @repo_owner = owner
+      @repo_name = repo
+    end
+
     def add_offences(offences, url, file_name)
       offences.each do |offence_name, lines|
         details = { file_name: file_name, url: url, lines: lines }
@@ -17,6 +22,8 @@ module GhFasterer
 
     def result
       {
+        repo_owner: repo_owner,
+        repo_name: repo_name,
         fasterer_offences: fasterer_offences,
         errors: errors,
         api_errors: api_errors
@@ -24,6 +31,8 @@ module GhFasterer
     end
 
     private
+
+    attr_accessor :repo_owner, :repo_name
 
     def fasterer_offences
       @fasterer_offenses ||= {}
