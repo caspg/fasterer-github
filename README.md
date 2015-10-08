@@ -1,8 +1,13 @@
-[![Code Climate](https://codeclimate.com/github/caspg/gh_fasterer/badges/gpa.svg)](https://codeclimate.com/github/caspg/gh_fasterer)
-[![Test Coverage](https://codeclimate.com/github/caspg/gh_fasterer/badges/coverage.svg)](https://codeclimate.com/github/caspg/gh_fasterer/coverage)
-# GhFasterer
+## TODO
+- update Readme
+- add `repo_info: { owner: 'owner_name', repo: 'repo_name' }` to output hash
+- change
+`url: 'https://api.github.com/repos/owner/repo/contents/path/to/file.rb?ref=master'`
+to `path: 'path/to/file.rb'`
+- remove `:file_name` from output hash
+- rename repo to `fasterer-gh` and change files structure
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/gh_fasterer`. To experiment with that code, run `bin/console` for an interactive prompt.
+# GhFasterer
 
 TODO: Delete this and the text above, and describe your gem
 
@@ -22,19 +27,52 @@ Or install it yourself as:
 
     $ gem install gh_fasterer
 
+## Request Rate Limit - Github Api
+
+Github api rate limit for unauthenticated requests is 60 request per hour. Fortunately, authenticated requests get a higher rate limit, which allows to make up to 5,000 requests per hour. To provide your github `client_id` and `client_secret` you have to use configure block:
+
+```ruby
+GhFasterer.configure do |config|
+  config.client_id = 'YOUR_GITHUB_CLIENT_ID'
+  config.client_secret = 'YOUR_GITHUB_CLIENT_SECRET'
+end
+```
+
 ## Usage
 
-TODO: Write usage instructions here
+To scan whole repo, run:
+```ruby
+GhFasterer.scan(owner, repo)
+```
 
-## Development
+You can also scan specific file:
+```ruby
+GhFasterer.scan(owner, repo, 'lib/gh_fasterer.rb')
+```
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake rspec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+## Example output
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+```ruby
+$ GhFasterer.scan('owner', 'repo', 'path/to/file.rb')
+
+{
+  :fasterer_offences => {
+    :hash_merge_bang_vs_hash_brackets => [
+      {
+        :file_name => "16_hash_merge_bang_vs_hash_brackets.rb",
+        :url => "https://api.github.com/repos/owner/repo/contents/path/to/file.rb?ref=master",
+        :lines => [10, 17, 19]
+      }
+    ]
+  },
+  :errors => [],
+  :api_errors => []
+}
+```
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/gh_fasterer.
+Bug reports and pull requests are welcome on GitHub at https://github.com/caspg/gh_fasterer.
 
 
 ## License
