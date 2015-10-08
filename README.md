@@ -68,7 +68,7 @@ $ GhFasterer.scan('owner', 'repo', 'path/to/file.rb')
 }
 ```
 
-example output when parser encounter any error and api return error code:
+Example output when parser encounters some error and api returns error code:
 ```ruby
 {
   :repo_owner => 'owner',
