@@ -39,12 +39,12 @@ end
 
 To scan whole repo, run:
 ```ruby
-GhFasterer.scan(owner, repo)
+GhFasterer.scan('owner', 'repo')
 ```
 
 You can also scan specific file:
 ```ruby
-GhFasterer.scan(owner, repo, 'lib/gh_fasterer.rb')
+GhFasterer.scan('owner', 'repo', 'lib/gh_fasterer.rb')
 ```
 
 ## Example output
