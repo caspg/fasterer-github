@@ -1,4 +1,10 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
+
+if ENV['TRAVIS']
+  require 'codeclimate-test-reporter'
+  CodeClimate::TestReporter.start
+end
+
 require 'gh_fasterer'
 require 'webmock/rspec'
 require 'vcr'
@@ -20,7 +26,7 @@ VCR.configure do |c|
   c.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
   c.hook_into :webmock
   c.configure_rspec_metadata!
+  c.ignore_hosts 'codeclimate.com'
 end
 
-require 'codeclimate-test-reporter'
-CodeClimate::TestReporter.start
+WebMock.disable_net_connect!(:allow => "codeclimate.com")
