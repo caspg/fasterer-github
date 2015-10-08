@@ -2,13 +2,7 @@
 [![Test Coverage](https://codeclimate.com/github/caspg/gh_fasterer/badges/coverage.svg)](https://codeclimate.com/github/caspg/gh_fasterer/coverage)
 ## TODO
 - update Readme
-- change
-`url: 'https://api.github.com/repos/owner/repo/contents/path/to/file.rb?ref=master'`
-to `path: 'path/to/file.rb'`
-- remove `:file_name` from output hash
 - rename repo to `fasterer-gh` and change files structure
-- allow configure fasterer (Turn off speed suggestions
-, Blacklist files or complete folder paths)
 
 # GhFasterer
 
@@ -80,8 +74,12 @@ example output when parser encounter any error and api return error code:
   :repo_owner => 'owner',
   :repo_name => 'repo',
   :fasterer_offences => {},
-  :errors => [{ path: 'path/to/file.rb' }],
-  :api_errors => [{ code: 404, msg_body: 'some message from github api', path: 'path/to/file.rb' }]
+  :errors => [
+    { path: 'path/to/file.rb' }
+  ],
+  :api_errors => [
+    { code: 404, msg_body: 'some message from github api', path: 'path/to/file.rb' }
+  ]
 }
 ```
 
