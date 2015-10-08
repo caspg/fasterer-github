@@ -52,7 +52,7 @@ module GhFasterer
     end
 
     def store_data(response)
-      file_data = { url: response['url'], content64: response['content'], name: response['name'] }
+      file_data = { path: response['path'], content64: response['content'] }
       collected_data << file_data
     end
 

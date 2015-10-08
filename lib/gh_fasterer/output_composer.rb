@@ -5,15 +5,15 @@ module GhFasterer
       @repo_name = repo
     end
 
-    def add_offences(offences, url, file_name)
+    def add_offences(offences, path)
       offences.each do |offence_name, lines|
-        details = { file_name: file_name, url: url, lines: lines }
+        details = { path: path, lines: lines }
         (fasterer_offences[offence_name] ||= []) << details
       end
     end
 
-    def add_errors(url, file_name)
-      errors << { url: url, file_name: file_name }
+    def add_errors(path)
+      errors << { path: path }
     end
 
     def add_api_errors(new_api_errors)

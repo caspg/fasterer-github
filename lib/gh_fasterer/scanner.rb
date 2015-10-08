@@ -41,9 +41,9 @@ module GhFasterer
       analyzer = GhFasterer::AnalyzerExtension.new(data[:content64])
       analyzer.scan
     rescue RubyParser::SyntaxError, Racc::ParseError, Timeout::Error
-      output_composer.add_errors(data[:url], data[:name])
+      output_composer.add_errors(data[:path])
     else
-      output_composer.add_offences(analyzer.offences, data[:url], data[:name])
+      output_composer.add_offences(analyzer.offences, data[:path])
     end
   end
 end

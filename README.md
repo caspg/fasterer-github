@@ -1,3 +1,5 @@
+[![Code Climate](https://codeclimate.com/github/caspg/gh_fasterer/badges/gpa.svg)](https://codeclimate.com/github/caspg/gh_fasterer)
+[![Test Coverage](https://codeclimate.com/github/caspg/gh_fasterer/badges/coverage.svg)](https://codeclimate.com/github/caspg/gh_fasterer/coverage)
 ## TODO
 - update Readme
 - change
@@ -57,17 +59,29 @@ GhFasterer.scan(owner, repo, 'lib/gh_fasterer.rb')
 $ GhFasterer.scan('owner', 'repo', 'path/to/file.rb')
 
 {
+  :repo_owner => 'owner',
+  :repo_name => 'repo',
   :fasterer_offences => {
     :hash_merge_bang_vs_hash_brackets => [
       {
-        :file_name => "16_hash_merge_bang_vs_hash_brackets.rb",
-        :url => "https://api.github.com/repos/owner/repo/contents/path/to/file.rb?ref=master",
+        :path => "https://api.github.com/repos/owner/repo/contents/path/to/file.rb?ref=master",
         :lines => [10, 17, 19]
       }
     ]
   },
   :errors => [],
   :api_errors => []
+}
+```
+
+example output when parser encounter any error and api return error code:
+```ruby
+{
+  :repo_owner => 'owner',
+  :repo_name => 'repo',
+  :fasterer_offences => {},
+  :errors => [{ path: 'path/to/file.rb' }],
+  :api_errors => [{ code: 404, msg_body: 'some message from github api' }]
 }
 ```
 

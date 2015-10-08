@@ -13,10 +13,8 @@ describe GhFasterer::OutputComposer do
     }
   end
   let(:another_offences) { { fetch_with_argument_vs_block: [13] } }
-  let(:url) { 'some_url' }
-  let(:another_url) { 'another_url' }
-  let(:file_name) { 'file name' }
-  let(:another_file_name) { 'another file name' }
+  let(:path) { 'some_path' }
+  let(:another_path) { 'another_path' }
 
   describe '#add_offences' do
     let(:expected_result) do
@@ -25,11 +23,11 @@ describe GhFasterer::OutputComposer do
         repo_name: repo_name,
         fasterer_offences: {
           hash_merge_bang_vs_hash_brackets: [
-            { file_name: 'file name', url: 'some_url', lines: [10, 19] }
+            { path: 'some_path', lines: [10, 19] }
           ],
           fetch_with_argument_vs_block: [
-            { file_name: 'file name', url: 'some_url', lines: [26] },
-            { file_name: 'another file name', url: 'another_url', lines: [13] }
+            { path: 'some_path', lines: [26] },
+            { path: 'another_path', lines: [13] }
           ]
         },
         errors: [],
@@ -38,8 +36,8 @@ describe GhFasterer::OutputComposer do
     end
 
     it 'returns correct result' do
-      subject.add_offences(offences, url, file_name)
-      subject.add_offences(another_offences, another_url, another_file_name)
+      subject.add_offences(offences, path)
+      subject.add_offences(another_offences, another_path)
       expect(subject.result).to eq(expected_result)
     end
   end
@@ -51,16 +49,16 @@ describe GhFasterer::OutputComposer do
         repo_name: repo_name,
         fasterer_offences: {},
         errors: [
-          { url: url, file_name: file_name },
-          { url: another_url, file_name: another_file_name }
+          { path: path },
+          { path: another_path}
         ],
         api_errors: []
       }
     end
 
     it 'returns correct result' do
-      subject.add_errors(url, file_name)
-      subject.add_errors(another_url, another_file_name)
+      subject.add_errors(path)
+      subject.add_errors(another_path)
       expect(subject.result).to eq(expected_result)
     end
   end

@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'gh_fasterer/gh_traverser'
 
 describe GhFasterer::GhTraverser do
-  let(:attributes) { %i(url content64 name) }
+  let(:attributes) { %i(path content64) }
 
   context 'when traversing repo', vcr: { cassette_name: 'traversed_repo' } do
     let!(:traverser) { described_class.new('caspg', 'gh_fasterer', '') }
@@ -25,7 +25,7 @@ describe GhFasterer::GhTraverser do
     end
 
     it 'contains only ruby files' do
-      files_names = traverser_results.map { |i| i[:name] }
+      files_names = traverser_results.map { |i| i[:path] }
       files_names.each do |name|
         expect(name =~ /.rb$/).not_to eq(nil)
       end
