@@ -6,6 +6,8 @@
 to `path: 'path/to/file.rb'`
 - remove `:file_name` from output hash
 - rename repo to `fasterer-gh` and change files structure
+- allow configure fasterer (Turn off speed suggestions
+, Blacklist files or complete folder paths)
 
 # GhFasterer
 
