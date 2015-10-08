@@ -16,12 +16,6 @@ end
 
 Dir[RSpec.root.join('support/**/*.rb')].each { |f| require f }
 
-class StubbedResponse
-  def code
-    200
-  end
-end
-
 VCR.configure do |c|
   c.cassette_library_dir = 'spec/fixtures/vcr_cassettes'
   c.hook_into :webmock
@@ -29,4 +23,26 @@ VCR.configure do |c|
   c.ignore_hosts 'codeclimate.com'
 end
 
-WebMock.disable_net_connect!(:allow => "codeclimate.com")
+WebMock.disable_net_connect!(:allow => 'codeclimate.com')
+
+class SuccessResponse
+  def code
+    200
+  end
+end
+
+class RateLimitResponse
+  def code
+    403
+  end
+
+  def body
+    "{\"message\":\"API rate limit exceeded for 88.156.131.117. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)\",\"documentation_url\":\"https://developer.github.com/v3/#rate-limiting\"}"
+  end
+end
+
+class ErorrResponse
+  def code
+    404
+  end
+end

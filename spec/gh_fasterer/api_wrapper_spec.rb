@@ -9,7 +9,7 @@ describe GhFasterer::ApiWrapper do
     let(:repo) { 'gh_fasterer' }
 
     before(stub_request: true) do
-      allow(HTTParty).to receive(:get) { StubbedResponse.new }
+      allow(HTTParty).to receive(:get) { SuccessResponse.new }
     end
 
     context 'when client_secret and client_id are not specified' do
