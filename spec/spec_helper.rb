@@ -21,3 +21,8 @@ VCR.configure do |c|
   c.hook_into :webmock
   c.configure_rspec_metadata!
 end
+
+if ENV['TRAVIS']
+  require 'codeclimate-test-reporter'
+  CodeClimate::TestReporter.start
+end
