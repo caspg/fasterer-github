@@ -15,7 +15,7 @@ describe GhFasterer do
       expect(scanner).to receive(:run)
       expect(scanner).to receive(:results)
 
-      subject.scan(owner: owner, repo: repo)
+      subject.scan(owner, repo)
     end
   end
 end
