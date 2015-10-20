@@ -7,4 +7,4 @@ before_install: gem install bundler -v 1.10.5
 addons:
   code_climate:
     repo_token:
-      secure: 34a046d09fe4529a3bda6a43103041d6ae93a24630737ad21ee2ce32daacbee5
+      secure: 3c0a38daec04e8d951665de52bba00cf631baa154bd9a19394dcfe1fb9e85ff1
