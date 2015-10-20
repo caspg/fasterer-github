@@ -1,12 +1,10 @@
 [![Code Climate](https://codeclimate.com/github/caspg/fasterer-github/badges/gpa.svg)](https://codeclimate.com/github/caspg/fasterer-github)
 [![Test Coverage](https://codeclimate.com/github/caspg/fasterer-github/badges/coverage.svg)](https://codeclimate.com/github/caspg/fasterer-github/coverage)
-## TODO
-- update Readme
-- rename repo to `fasterer-gh` and change files structure
 
-# Fasterer::Github
+# fasterer-github
 
-TODO: Delete this and the text above, and describe your gem
+This is a [fasterer](https://github.com/DamirSvrtan/fasterer) extension which allows to scan GitHub repo using GitHub API.
+
 
 ## Installation
 
@@ -26,7 +24,18 @@ Or install it yourself as:
 
 ## Request Rate Limit - Github Api
 
-Github api rate limit for unauthenticated requests is 60 request per hour. Fortunately, authenticated requests get a higher rate limit, which allows to make up to 5,000 requests per hour. To provide your github `client_id` and `client_secret` you have to use configure block:
+Github api rate limit for unauthenticated requests is 60 request per hour. Fortunately, authenticated requests get a higher rate limit, which allows to make up to 5,000 requests per hour.
+
+## Configuration
+
+You can use configure block to provide `access_token`:
+```ruby
+Fasterer::Github.configure do |config|
+  config.access_token = 'YOUR_GITHUB_ACCESS_TOKEN'
+end
+```
+
+Instead of `access_token`, you can also add `client_id` and `client_secret`:
 
 ```ruby
 Fasterer::Github.configure do |config|
