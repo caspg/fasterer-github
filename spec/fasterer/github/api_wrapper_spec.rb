@@ -44,6 +44,26 @@ describe Fasterer::Github::ApiWrapper do
       end
     end
 
+    context 'when access_token is specified' do
+      before do
+        Fasterer::Github.configure do |config|
+          config.access_token = 'access_token'
+        end
+      end
+
+      after(:each) { Fasterer::Github.reset_configuration }
+
+      let(:path) { nil }
+
+      it 'makes request with correct url', stub_request: true do
+        subject
+        url = 'https://api.github.com/repos/caspg/fasterer-github/contents/'
+        url += '?access_token=access_token'
+
+        expect(HTTParty).to have_received(:get).with(url)
+      end
+    end
+
     context 'when client_secret and client_id are specified' do
       before do
         Fasterer::Github.configure do |config|

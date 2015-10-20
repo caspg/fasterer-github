@@ -6,6 +6,29 @@ describe Fasterer::Github::Configuration do
 
   after { Fasterer::Github.reset_configuration }
 
+  context 'when access_token is not specified' do
+    before do
+      subject.configure do |configure|
+      end
+    end
+
+    it 'uses defaults value' do
+      expect(subject.configuration.access_token).to eq(nil)
+    end
+  end
+
+  context 'when access_token is specified' do
+    before do
+      subject.configure do |config|
+        config.access_token = 'access_token'
+      end
+    end
+
+    it 'is used instead of default' do
+      expect(subject.configuration.access_token).to eq('access_token')
+    end
+  end
+
   context 'when client_id is not specified' do
     before do
       subject.configure do |configure|

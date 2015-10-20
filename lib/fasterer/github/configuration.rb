@@ -18,11 +18,12 @@ module Fasterer
     end
 
     class Configuration
-      attr_accessor :client_id, :client_secret
+      attr_accessor :client_id, :client_secret, :access_token
 
       def initialize
         @client_id = nil
         @client_secret = nil
+        @access_token = nil
       end
     end
   end
