@@ -5,7 +5,7 @@ if ENV['TRAVIS']
   CodeClimate::TestReporter.start
 end
 
-require 'gh_fasterer'
+require 'fasterer/github'
 require 'webmock/rspec'
 require 'vcr'
 require 'pry'

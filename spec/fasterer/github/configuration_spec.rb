@@ -1,10 +1,10 @@
 require 'spec_helper'
-require 'gh_fasterer/configuration'
+require 'fasterer/github/configuration'
 
-describe GhFasterer::Configuration do
-  subject { GhFasterer }
+describe Fasterer::Github::Configuration do
+  subject { Fasterer::Github }
 
-  after { GhFasterer.reset_configuration }
+  after { Fasterer::Github.reset_configuration }
 
   context 'when client_id is not specified' do
     before do

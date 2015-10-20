@@ -1,12 +1,12 @@
 require 'spec_helper'
-require 'gh_fasterer/api_wrapper'
+require 'fasterer/github/api_wrapper'
 
-describe GhFasterer::ApiWrapper do
+describe Fasterer::Github::ApiWrapper do
   describe '#contents' do
     subject { described_class.new(owner, repo).contents(path) }
 
     let(:owner) { 'caspg' }
-    let(:repo) { 'gh_fasterer' }
+    let(:repo) { 'fasterer-github' }
 
     before(stub_request: true) do
       allow(HTTParty).to receive(:get) { SuccessResponse.new }
@@ -19,7 +19,7 @@ describe GhFasterer::ApiWrapper do
         it 'makes request with correct url', stub_request: true do
           subject
 
-          url = 'https://api.github.com/repos/caspg/gh_fasterer/contents/'
+          url = 'https://api.github.com/repos/caspg/fasterer-github/contents/'
           expect(HTTParty).to have_received(:get).with(url)
         end
 
@@ -29,12 +29,12 @@ describe GhFasterer::ApiWrapper do
       end
 
       context 'when path is not nil' do
-        let(:path) { 'lib/gh_fasterer.rb' }
+        let(:path) { 'lib/fasterer-github.rb' }
 
         it 'makes request with correct url', stub_request: true do
           subject
 
-          url = 'https://api.github.com/repos/caspg/gh_fasterer/contents/lib/gh_fasterer.rb'
+          url = 'https://api.github.com/repos/caspg/fasterer-github/contents/lib/fasterer-github.rb'
           expect(HTTParty).to have_received(:get).with(url)
         end
 
@@ -46,19 +46,19 @@ describe GhFasterer::ApiWrapper do
 
     context 'when client_secret and client_id are specified' do
       before do
-        GhFasterer.configure do |config|
+        Fasterer::Github.configure do |config|
           config.client_id = 'client_id'
           config.client_secret = 'client_secret'
         end
       end
 
-      after(:each) { GhFasterer.reset_configuration }
+      after(:each) { Fasterer::Github.reset_configuration }
 
       let(:path) { nil }
 
       it 'makes request with correct url', stub_request: true do
         subject
-        url = 'https://api.github.com/repos/caspg/gh_fasterer/contents/'
+        url = 'https://api.github.com/repos/caspg/fasterer-github/contents/'
         url += '?client_id=client_id&client_secret=client_secret'
 
         expect(HTTParty).to have_received(:get).with(url)

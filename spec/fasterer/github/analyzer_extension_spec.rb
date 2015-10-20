@@ -1,8 +1,8 @@
 require 'spec_helper'
-require 'gh_fasterer/analyzer_extension'
+require 'fasterer/github/analyzer_extension'
 require 'base64'
 
-describe GhFasterer::AnalyzerExtension do
+describe Fasterer::Github::AnalyzerExtension do
   subject { described_class.new(encoded_content) }
 
   it 'inherits class from fasterer gem' do
@@ -19,7 +19,7 @@ describe GhFasterer::AnalyzerExtension do
   end
 
   describe 'offences' do
-    let(:encoded_content) { GhFasterer::TestData.content64_with_offences }
+    let(:encoded_content) { Fasterer::Github::TestData.content64_with_offences }
     let(:expected_result) do
       {
         hash_merge_bang_vs_hash_brackets: [10, 17, 19],

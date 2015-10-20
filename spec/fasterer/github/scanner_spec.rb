@@ -1,14 +1,14 @@
 require 'spec_helper'
-require 'gh_fasterer/scanner'
+require 'fasterer/github/scanner'
 
-describe GhFasterer::Scanner do
+describe Fasterer::Github::Scanner do
   subject { described_class.new('owner', 'repo', 'path') }
 
   let(:collected_data) { TraverserResults.test_data }
 
   before do
     traverser = double
-    allow(GhFasterer::GhTraverser).to receive(:new)
+    allow(Fasterer::Github::GhTraverser).to receive(:new)
       .with('owner', 'repo', 'path').and_return(traverser)
     allow(traverser).to receive(:traverse)
     allow(traverser).to receive(:api_errors).and_return([])

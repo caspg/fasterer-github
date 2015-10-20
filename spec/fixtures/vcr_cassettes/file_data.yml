@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://api.github.com/repos/caspg/gh_fasterer/contents/lib/gh_fasterer.rb
+    uri: https://api.github.com/repos/caspg/fasterer-github/contents/lib/fasterer-github.rb
     body:
       encoding: US-ASCII
       string: ''
@@ -68,7 +68,7 @@ http_interactions:
       - a7f8a126c9ed3f1c4715a34c0ddc7290
     body:
       encoding: UTF-8
-      string: '{"name":"gh_fasterer.rb","path":"lib/gh_fasterer.rb","sha":"890b7b75eac34c3e9cc2a705d2015a6b9ec70f67","size":80,"url":"https://api.github.com/repos/caspg/gh_fasterer/contents/lib/gh_fasterer.rb?ref=master","html_url":"https://github.com/caspg/gh_fasterer/blob/master/lib/gh_fasterer.rb","git_url":"https://api.github.com/repos/caspg/gh_fasterer/git/blobs/890b7b75eac34c3e9cc2a705d2015a6b9ec70f67","download_url":"https://raw.githubusercontent.com/caspg/gh_fasterer/master/lib/gh_fasterer.rb","type":"file","content":"cmVxdWlyZSAnZ2hfZmFzdGVyZXIvdmVyc2lvbicKCm1vZHVsZSBHaEZhc3Rl\ncmVyCiAgIyBZb3VyIGNvZGUgZ29lcyBoZXJlLi4uCmVuZAo=\n","encoding":"base64","_links":{"self":"https://api.github.com/repos/caspg/gh_fasterer/contents/lib/gh_fasterer.rb?ref=master","git":"https://api.github.com/repos/caspg/gh_fasterer/git/blobs/890b7b75eac34c3e9cc2a705d2015a6b9ec70f67","html":"https://github.com/caspg/gh_fasterer/blob/master/lib/gh_fasterer.rb"}}'
+      string: '{"name":"fasterer-github.rb","path":"lib/fasterer-github.rb","sha":"890b7b75eac34c3e9cc2a705d2015a6b9ec70f67","size":80,"url":"https://api.github.com/repos/caspg/fasterer-github/contents/lib/fasterer-github.rb?ref=master","html_url":"https://github.com/caspg/fasterer-github/blob/master/lib/fasterer-github.rb","git_url":"https://api.github.com/repos/caspg/fasterer-github/git/blobs/890b7b75eac34c3e9cc2a705d2015a6b9ec70f67","download_url":"https://raw.githubusercontent.com/caspg/fasterer-github/master/lib/fasterer-github.rb","type":"file","content":"cmVxdWlyZSAnZ2hfZmFzdGVyZXIvdmVyc2lvbicKCm1vZHVsZSBHaEZhc3Rl\ncmVyCiAgIyBZb3VyIGNvZGUgZ29lcyBoZXJlLi4uCmVuZAo=\n","encoding":"base64","_links":{"self":"https://api.github.com/repos/caspg/fasterer-github/contents/lib/fasterer-github.rb?ref=master","git":"https://api.github.com/repos/caspg/fasterer-github/git/blobs/890b7b75eac34c3e9cc2a705d2015a6b9ec70f67","html":"https://github.com/caspg/fasterer-github/blob/master/lib/fasterer-github.rb"}}'
     http_version:
   recorded_at: Wed, 16 Sep 2015 17:01:03 GMT
 recorded_with: VCR 2.9.0

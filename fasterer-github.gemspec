@@ -1,16 +1,16 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'gh_fasterer/version'
+require 'fasterer/github/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'gh_fasterer'
-  spec.version       = GhFasterer::VERSION
+  spec.name          = 'fasterer-github'
+  spec.version       = Fasterer::Github::VERSION
   spec.authors       = ['Kacper Goliński']
   spec.email         = ['kacper.golinski@gmail.co']
 
   spec.summary       = 'Fasterer extension which allows to scan github repo. '
-  spec.homepage      = 'https://github.com/caspg/gh_fasterer'
+  spec.homepage      = 'https://github.com/caspg/fasterer-github'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }

@@ -1,10 +1,10 @@
-[![Code Climate](https://codeclimate.com/github/caspg/gh_fasterer/badges/gpa.svg)](https://codeclimate.com/github/caspg/gh_fasterer)
-[![Test Coverage](https://codeclimate.com/github/caspg/gh_fasterer/badges/coverage.svg)](https://codeclimate.com/github/caspg/gh_fasterer/coverage)
+[![Code Climate](https://codeclimate.com/github/caspg/fasterer-github/badges/gpa.svg)](https://codeclimate.com/github/caspg/fasterer-github)
+[![Test Coverage](https://codeclimate.com/github/caspg/fasterer-github/badges/coverage.svg)](https://codeclimate.com/github/caspg/fasterer-github/coverage)
 ## TODO
 - update Readme
 - rename repo to `fasterer-gh` and change files structure
 
-# GhFasterer
+# Fasterer::Github
 
 TODO: Delete this and the text above, and describe your gem
 
@@ -13,7 +13,7 @@ TODO: Delete this and the text above, and describe your gem
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'gh_fasterer'
+gem 'fasterer-github'
 ```
 
 And then execute:
@@ -22,14 +22,14 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install gh_fasterer
+    $ gem install fasterer-github
 
 ## Request Rate Limit - Github Api
 
 Github api rate limit for unauthenticated requests is 60 request per hour. Fortunately, authenticated requests get a higher rate limit, which allows to make up to 5,000 requests per hour. To provide your github `client_id` and `client_secret` you have to use configure block:
 
 ```ruby
-GhFasterer.configure do |config|
+Fasterer::Github.configure do |config|
   config.client_id = 'YOUR_GITHUB_CLIENT_ID'
   config.client_secret = 'YOUR_GITHUB_CLIENT_SECRET'
 end
@@ -39,18 +39,18 @@ end
 
 To scan whole repo, run:
 ```ruby
-GhFasterer.scan('owner', 'repo')
+Fasterer::Github.scan('owner', 'repo')
 ```
 
 You can also scan specific file:
 ```ruby
-GhFasterer.scan('owner', 'repo', 'lib/gh_fasterer.rb')
+Fasterer::Github.scan('owner', 'repo', 'lib/fasterer-github.rb')
 ```
 
 ## Example output
 
 ```ruby
-$ GhFasterer.scan('owner', 'repo', 'path/to/file.rb')
+$ Fasterer::Github.scan('owner', 'repo', 'path/to/file.rb')
 
 {
   :repo_owner => 'owner',
@@ -85,7 +85,7 @@ Example output when parser encounters some error and api returns error code:
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/caspg/gh_fasterer.
+Bug reports and pull requests are welcome on GitHub at https://github.com/caspg/fasterer-github.
 
 
 ## License

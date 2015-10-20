@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe GhFasterer do
+describe Fasterer::Github do
   it 'has a version number' do
-    expect(GhFasterer::VERSION).not_to be nil
+    expect(Fasterer::Github::VERSION).not_to be nil
   end
 
   describe '.scan' do
@@ -11,7 +11,7 @@ describe GhFasterer do
 
     it 'calls correct methods' do
       scanner = double
-      expect(GhFasterer::Scanner).to receive(:new).with(owner, repo, nil) { scanner }
+      expect(Fasterer::Github::Scanner).to receive(:new).with(owner, repo, nil) { scanner }
       expect(scanner).to receive(:run)
       expect(scanner).to receive(:results)
 

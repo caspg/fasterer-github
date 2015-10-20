@@ -1,4 +1,4 @@
-module GhFasterer
+module Fasterer::Github
   class TestData
     class << self
       def content64_with_offences

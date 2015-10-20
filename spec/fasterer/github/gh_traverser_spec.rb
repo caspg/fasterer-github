@@ -1,11 +1,11 @@
 require 'spec_helper'
-require 'gh_fasterer/gh_traverser'
+require 'fasterer/github/gh_traverser'
 
-describe GhFasterer::GhTraverser do
+describe Fasterer::Github::GhTraverser do
   let(:attributes) { %i(path content64) }
 
   context 'when traversing repo', vcr: { cassette_name: 'traversed_repo' } do
-    let!(:traverser) { described_class.new('caspg', 'gh_fasterer', '') }
+    let!(:traverser) { described_class.new('caspg', 'fasterer-github', '') }
     let!(:traverser_results) do
       traverser.traverse
       traverser.collected_data
@@ -35,11 +35,11 @@ describe GhFasterer::GhTraverser do
   context 'when rate limit api error is encountered' do
     before do
       wrapper = double
-      allow(GhFasterer::ApiWrapper).to receive(:new) { wrapper }
+      allow(Fasterer::Github::ApiWrapper).to receive(:new) { wrapper }
       allow(wrapper).to receive(:contents) { RateLimitResponse.new }
     end
 
-    let!(:traverser) { described_class.new('caspg', 'gh_fasterer', 'test/path.rb') }
+    let!(:traverser) { described_class.new('caspg', 'fasterer-github', 'test/path.rb') }
     let!(:traverser_api_errors) do
       traverser.traverse
       traverser.api_errors

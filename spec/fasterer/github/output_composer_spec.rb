@@ -1,7 +1,7 @@
 require 'spec_helper'
-require 'gh_fasterer/output_composer'
+require 'fasterer/github/output_composer'
 
-describe GhFasterer::OutputComposer do
+describe Fasterer::Github::OutputComposer do
   subject { described_class.new(repo_owner, repo_name) }
 
   let(:repo_owner) { 'repo_owner' }
