@@ -1,0 +1,1 @@
+require 'fasterer/github'
