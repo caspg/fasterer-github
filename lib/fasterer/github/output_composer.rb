@@ -57,7 +57,12 @@ module Fasterer
       end
 
       def load_ignored_offences
-        YAML.load_file(File.join(Dir.pwd, CONFIG_FILE_NAME))
+        path_to_config = File.join(Dir.pwd, CONFIG_FILE_NAME)
+        if File.exist?(path_to_config)
+          YAML.load_file(File.join(Dir.pwd, CONFIG_FILE_NAME))
+        else
+          { SPEEDUPS_KEY => {} }
+        end
       end
     end
   end
