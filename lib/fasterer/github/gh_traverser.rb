@@ -35,10 +35,13 @@ module Fasterer
         parsed_response = response.parsed_response
 
         if parsed_response.is_a?(Hash)
-          return unless match_regex?(parsed_response['path'])
+          return unless ruby_file?(parsed_response['path'])
           store_data(parsed_response)
         else
-          parsed_response.each { |item| collect_data(item['path']) }
+          parsed_response.each do |item|
+            next if item['type'] == 'file' && !ruby_file?(item['path'])
+            collect_data(item['path'])
+          end
         end
       end
 
@@ -57,7 +60,7 @@ module Fasterer
         collected_data << file_data
       end
 
-      def match_regex?(file_name)
+      def ruby_file?(file_name)
         file_name =~ /\.rb$/
       end
     end
