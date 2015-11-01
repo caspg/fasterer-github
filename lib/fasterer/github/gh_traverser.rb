@@ -58,7 +58,7 @@ module Fasterer
       end
 
       def match_regex?(file_name)
-        file_name =~ /(.rb)$/
+        file_name =~ /\.rb$/
       end
     end
   end
