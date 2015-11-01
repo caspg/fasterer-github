@@ -17,28 +17,62 @@ describe Fasterer::Github::OutputComposer do
   let(:another_path) { 'another_path' }
 
   describe '#add_offences' do
-    let(:expected_result) do
-      {
-        repo_owner: repo_owner,
-        repo_name: repo_name,
-        fasterer_offences: {
-          hash_merge_bang_vs_hash_brackets: [
-            { path: 'some_path', lines: [10, 19] }
-          ],
-          fetch_with_argument_vs_block: [
-            { path: 'some_path', lines: [26] },
-            { path: 'another_path', lines: [13] }
-          ]
-        },
-        errors: [],
-        api_errors: []
-      }
+    context 'when .fasterer.yml does not exist' do
+      before { allow(File).to receive(:exist?).and_return(false) }
+
+      let(:expected_result) do
+        {
+          repo_owner: repo_owner,
+          repo_name: repo_name,
+          fasterer_offences: {
+            hash_merge_bang_vs_hash_brackets: [
+              { path: 'some_path', lines: [10, 19] }
+            ],
+            fetch_with_argument_vs_block: [
+              { path: 'some_path', lines: [26] },
+              { path: 'another_path', lines: [13] }
+            ]
+          },
+          errors: [],
+          api_errors: []
+        }
+      end
+
+      it 'returns correct result' do
+        subject.add_offences(offences, path)
+        subject.add_offences(another_offences, another_path)
+
+        expect(subject.result).to eq(expected_result)
+      end
     end
 
-    it 'returns correct result' do
-      subject.add_offences(offences, path)
-      subject.add_offences(another_offences, another_path)
-      expect(subject.result).to eq(expected_result)
+    context 'when .fasterer.yml exist and fetch_with_argument_vs_block is ignored' do
+      before do
+        allow(File).to receive(:exist?).and_return(true)
+        allow(YAML).to receive(:load_file)
+          .and_return({ 'speedups' => { fetch_with_argument_vs_block: false } })
+      end
+
+      let(:expected_result) do
+        {
+          repo_owner: repo_owner,
+          repo_name: repo_name,
+          fasterer_offences: {
+            hash_merge_bang_vs_hash_brackets: [
+              { path: 'some_path', lines: [10, 19] }
+            ]
+          },
+          errors: [],
+          api_errors: []
+        }
+      end
+
+       it 'returns correct result' do
+        subject.add_offences(offences, path)
+        subject.add_offences(another_offences, another_path)
+
+        expect(subject.result).to eq(expected_result)
+      end
     end
   end
 
@@ -59,6 +93,7 @@ describe Fasterer::Github::OutputComposer do
     it 'returns correct result' do
       subject.add_errors(path)
       subject.add_errors(another_path)
+
       expect(subject.result).to eq(expected_result)
     end
   end
@@ -79,6 +114,7 @@ describe Fasterer::Github::OutputComposer do
 
     it 'returns correct result' do
       subject.add_api_errors(api_errors)
+
       expect(subject.result).to eq(expected_result)
     end
   end
