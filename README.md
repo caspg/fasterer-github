@@ -5,6 +5,8 @@
 
 This is a [fasterer](https://github.com/DamirSvrtan/fasterer) extension which allows to scan GitHub repo using GitHub API.
 
+Fasterer-github will analyze your code and suggest faster ruby idioms. Read more about ruby idoms [here](https://github.com/JuanitoFatas/fast-ruby)
+
 
 ## Installation
 
