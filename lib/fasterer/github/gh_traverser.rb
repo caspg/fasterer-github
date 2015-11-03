@@ -3,10 +3,11 @@ require_relative 'api_wrapper'
 module Fasterer
   module Github
     class GhTraverser
-      def initialize(owner, repo, path)
+      def initialize(owner, repo, path, ignored_paths)
         @owner = owner
         @repo = repo
         @path = path.to_s
+        @ignored_paths = ignored_paths.map { |i| i.chomp("/") }
       end
 
       def traverse
@@ -23,7 +24,7 @@ module Fasterer
 
       private
 
-      attr_reader :owner, :repo, :path
+      attr_reader :owner, :repo, :path, :ignored_paths
 
       def wrapper
         @wrapper ||= Fasterer::Github::ApiWrapper.new(owner, repo)
@@ -35,10 +36,10 @@ module Fasterer
         parsed_response = response.parsed_response
 
         if parsed_response.is_a?(Hash)
-          return unless ruby_file?(parsed_response['path'])
           store_data(parsed_response)
         else
           parsed_response.each do |item|
+            next if ignored_paths.include?(item['path'])
             next if item['type'] == 'file' && !ruby_file?(item['path'])
             collect_data(item['path'])
           end

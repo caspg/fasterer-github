@@ -2,14 +2,16 @@ require 'spec_helper'
 require 'fasterer/github/gh_traverser'
 
 describe Fasterer::Github::GhTraverser do
+  let(:traverser) { described_class.new('caspg', 'fasterer-github', '', ignored_paths) }
   let(:attributes) { %i(path content64) }
+  let(:ignored_paths) { [] }
 
   context 'when traversing repo', vcr: { cassette_name: 'traversed_repo' } do
-    let!(:traverser) { described_class.new('caspg', 'fasterer-github', '') }
-    let!(:traverser_results) do
+    let(:traverser_results) do
       traverser.traverse
       traverser.collected_data
     end
+    let(:files_paths) { traverser_results.map { |i| i[:path] } }
 
     it 'returns an array with hashes containing correct attributes' do
       expect(traverser_results.class).to eq(Array)
@@ -25,9 +27,40 @@ describe Fasterer::Github::GhTraverser do
     end
 
     it 'contains only ruby files' do
-      files_names = traverser_results.map { |i| i[:path] }
-      files_names.each do |name|
+      files_paths.each do |name|
         expect(name =~ /.rb$/).not_to eq(nil)
+      end
+    end
+
+    context 'when ignored_paths are empty' do
+      let(:all_paths) do
+        [
+          "lib/fasterer-github.rb",
+          "lib/fasterer-github/api_wrapper.rb",
+          "lib/fasterer-github/version.rb",
+          "spec/fasterer-github/api_wrapper_spec.rb",
+          "spec/fasterer-github_spec.rb",
+          "spec/spec_helper.rb"
+        ]
+      end
+
+      it 'returns all files' do
+        expect(files_paths).to eq(all_paths)
+      end
+    end
+
+    context 'when ignored_paths are specified' do
+      let(:ignored_paths) { ['lib/'] }
+      let(:filtered_paths) do
+        [
+          "spec/fasterer-github/api_wrapper_spec.rb",
+          "spec/fasterer-github_spec.rb",
+          "spec/spec_helper.rb"
+        ]
+      end
+
+      it 'returns filtered files' do
+        expect(files_paths).to eq(filtered_paths)
       end
     end
   end
@@ -39,8 +72,7 @@ describe Fasterer::Github::GhTraverser do
       allow(wrapper).to receive(:contents) { RateLimitResponse.new }
     end
 
-    let!(:traverser) { described_class.new('caspg', 'fasterer-github', 'test/path.rb') }
-    let!(:traverser_api_errors) do
+    let(:traverser_api_errors) do
       traverser.traverse
       traverser.api_errors
     end

@@ -5,9 +5,10 @@ module Fasterer
       CONFIG_FILE_NAME = '.fasterer.yml'
       SPEEDUPS_KEY     = 'speedups'
 
-      def initialize(owner, repo)
+      def initialize(owner, repo, ignored_offences)
         @repo_owner = owner
         @repo_name = repo
+        @ignored_offences = ignored_offences
       end
 
       def add_offences(offences, path)
@@ -38,7 +39,7 @@ module Fasterer
 
       private
 
-      attr_accessor :repo_owner, :repo_name
+      attr_accessor :repo_owner, :repo_name, :ignored_offences
 
       def fasterer_offences
         @fasterer_offenses ||= {}
@@ -50,19 +51,6 @@ module Fasterer
 
       def api_errors
         @api_errors ||= []
-      end
-
-      def ignored_offences
-        @ignored_offences ||= load_ignored_offences[SPEEDUPS_KEY].select { |_, v| v == false }.keys.map(&:to_sym)
-      end
-
-      def load_ignored_offences
-        path_to_config = File.join(Dir.pwd, CONFIG_FILE_NAME)
-        if File.exist?(path_to_config)
-          YAML.load_file(File.join(Dir.pwd, CONFIG_FILE_NAME))
-        else
-          { SPEEDUPS_KEY => {} }
-        end
       end
     end
   end

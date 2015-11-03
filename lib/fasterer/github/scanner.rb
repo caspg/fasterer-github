@@ -5,6 +5,11 @@ require 'fasterer/github/analyzer_extension'
 module Fasterer
   module Github
     class Scanner
+
+      CONFIG_FILE_NAME = '.fasterer.yml'
+      SPEEDUPS_KEY     = 'speedups'
+      EXCLUDE_PATHS_KEY = 'exclude_paths'
+
       def initialize(owner, repo, path)
         @owner = owner
         @repo = repo
@@ -25,11 +30,11 @@ module Fasterer
       attr_reader :owner, :repo, :path
 
       def traverser
-        @traverser ||= Fasterer::Github::GhTraverser.new(owner, repo, path)
+        @traverser ||= Fasterer::Github::GhTraverser.new(owner, repo, path, ignored_paths)
       end
 
       def output_composer
-        @output_composer ||= Fasterer::Github::OutputComposer.new(owner, repo)
+        @output_composer ||= Fasterer::Github::OutputComposer.new(owner, repo, ignored_offences)
       end
 
       def traverse_and_collect_data
@@ -45,6 +50,27 @@ module Fasterer
         output_composer.add_errors(data[:path])
       else
         output_composer.add_offences(analyzer.offences, data[:path])
+      end
+
+      def ignored_offences
+        loaded_config_file[SPEEDUPS_KEY].select { |_, v| v == false }.keys.map(&:to_sym)
+      end
+
+      def ignored_paths
+         loaded_config_file[EXCLUDE_PATHS_KEY]
+      end
+
+      def loaded_config_file
+        @loaded_config_file ||= load_config_file
+      end
+
+      def load_config_file
+        path_to_config = File.join(Dir.pwd, CONFIG_FILE_NAME)
+        if File.exist?(path_to_config)
+          YAML.load_file(path_to_config)
+        else
+          { SPEEDUPS_KEY => {}, EXCLUDE_PATHS_KEY => [] }
+        end
       end
     end
   end

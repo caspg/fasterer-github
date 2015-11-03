@@ -2,10 +2,11 @@ require 'spec_helper'
 require 'fasterer/github/output_composer'
 
 describe Fasterer::Github::OutputComposer do
-  subject { described_class.new(repo_owner, repo_name) }
+  subject { described_class.new(repo_owner, repo_name, ignored_offences) }
 
   let(:repo_owner) { 'repo_owner' }
   let(:repo_name) { 'repo_name' }
+  let(:ignored_offences) { [] }
   let(:offences) do
     {
       hash_merge_bang_vs_hash_brackets: [10, 19],
@@ -17,9 +18,7 @@ describe Fasterer::Github::OutputComposer do
   let(:another_path) { 'another_path' }
 
   describe '#add_offences' do
-    context 'when .fasterer.yml does not exist' do
-      before { allow(File).to receive(:exist?).and_return(false) }
-
+    context 'when ignored_offences are not specified' do
       let(:expected_result) do
         {
           repo_owner: repo_owner,
@@ -46,13 +45,8 @@ describe Fasterer::Github::OutputComposer do
       end
     end
 
-    context 'when .fasterer.yml exist and fetch_with_argument_vs_block is ignored' do
-      before do
-        allow(File).to receive(:exist?).and_return(true)
-        allow(YAML).to receive(:load_file)
-          .and_return({ 'speedups' => { fetch_with_argument_vs_block: false } })
-      end
-
+    context 'when ignored_offences are specified' do
+      let(:ignored_offences) { [:fetch_with_argument_vs_block] }
       let(:expected_result) do
         {
           repo_owner: repo_owner,

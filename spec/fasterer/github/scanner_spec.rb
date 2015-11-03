@@ -9,7 +9,7 @@ describe Fasterer::Github::Scanner do
   before do
     traverser = double
     allow(Fasterer::Github::GhTraverser).to receive(:new)
-      .with('owner', 'repo', 'path').and_return(traverser)
+      .with('owner', 'repo', 'path', []).and_return(traverser)
     allow(traverser).to receive(:traverse)
     allow(traverser).to receive(:api_errors).and_return([])
     allow(traverser).to receive(:collected_data).and_return(collected_data)
