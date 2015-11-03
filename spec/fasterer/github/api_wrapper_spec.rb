@@ -6,21 +6,23 @@ describe Fasterer::Github::ApiWrapper do
     subject { described_class.new(owner, repo).contents(path) }
 
     let(:owner) { 'caspg' }
-    let(:repo) { 'fasterer-github' }
+    let(:repo)  { 'fasterer-github' }
+    let(:expected_base_uri) { 'https://api.github.com/repos/caspg/fasterer-github/contents/' }
 
     before(stub_request: true) do
       allow(HTTParty).to receive(:get) { SuccessResponse.new }
     end
 
     context 'when client_secret and client_id are not specified' do
-      context 'when path is nil' do
-        let(:path) { nil }
+      let(:expected_query) { Hash[:query, nil] }
 
-        it 'makes request with correct url', stub_request: true do
+      context 'when path is nil' do
+        let(:path)         { nil }
+
+        it 'makes request with correct uri', stub_request: true do
           subject
 
-          url = 'https://api.github.com/repos/caspg/fasterer-github/contents/'
-          expect(HTTParty).to have_received(:get).with(url)
+          expect(HTTParty).to have_received(:get).with(expected_base_uri, expected_query)
         end
 
         it 'returns an array with repo/folder data', vcr: { cassette_name: 'folder_data' } do
@@ -29,13 +31,13 @@ describe Fasterer::Github::ApiWrapper do
       end
 
       context 'when path is not nil' do
-        let(:path) { 'lib/fasterer-github.rb' }
+        let(:path)         { 'lib/fasterer-github.rb' }
+        let(:expected_uri) { "#{expected_base_uri}lib/fasterer-github.rb" }
 
-        it 'makes request with correct url', stub_request: true do
+        it 'makes request with correct uri', stub_request: true do
           subject
 
-          url = 'https://api.github.com/repos/caspg/fasterer-github/contents/lib/fasterer-github.rb'
-          expect(HTTParty).to have_received(:get).with(url)
+          expect(HTTParty).to have_received(:get).with(expected_uri, expected_query)
         end
 
         it 'returns a hash with file data', vcr: { cassette_name: 'file_data' } do
@@ -53,14 +55,13 @@ describe Fasterer::Github::ApiWrapper do
 
       after(:each) { Fasterer::Github.reset_configuration }
 
-      let(:path) { nil }
+      let(:path)           { nil }
+      let(:expected_query) { Hash[:query, { 'access_token' => 'access_token' }] }
 
-      it 'makes request with correct url', stub_request: true do
+      it 'makes request with correct uri', stub_request: true do
         subject
-        url = 'https://api.github.com/repos/caspg/fasterer-github/contents/'
-        url += '?access_token=access_token'
 
-        expect(HTTParty).to have_received(:get).with(url)
+        expect(HTTParty).to have_received(:get).with(expected_base_uri, expected_query)
       end
     end
 
@@ -74,14 +75,13 @@ describe Fasterer::Github::ApiWrapper do
 
       after(:each) { Fasterer::Github.reset_configuration }
 
-      let(:path) { nil }
+      let(:path)           { nil }
+      let(:expected_query) { Hash[:query, { 'client_id' => 'client_id', 'client_secret' => 'client_secret' }] }
 
-      it 'makes request with correct url', stub_request: true do
+      it 'makes request with correct uri', stub_request: true do
         subject
-        url = 'https://api.github.com/repos/caspg/fasterer-github/contents/'
-        url += '?client_id=client_id&client_secret=client_secret'
 
-        expect(HTTParty).to have_received(:get).with(url)
+        expect(HTTParty).to have_received(:get).with(expected_base_uri, expected_query)
       end
     end
   end

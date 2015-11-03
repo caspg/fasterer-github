@@ -3,7 +3,7 @@ require 'httparty'
 module Fasterer
   module Github
     class ApiWrapper
-      BASE_URL = 'https://api.github.com'
+      BASE_URI = 'https://api.github.com'
 
       def initialize(owner, repo)
         @owner = owner
@@ -14,27 +14,28 @@ module Fasterer
       end
 
       def contents(path)
-        url = build_url(path)
-        HTTParty.get(url)
+        HTTParty.get(build_uri(path), query: authorization_params)
       end
 
       private
 
       attr_reader :owner, :repo, :path, :client_id, :client_secret, :access_token
 
-      def build_url(path)
-        url = BASE_URL + "/repos/#{owner}/#{repo}/contents/#{path}"
-        return add_access_token(url) if access_token != ''
-        return add_client_id_and_secret(url) if client_id != '' && client_secret != ''
-        url
+      def build_uri(path)
+        BASE_URI + "/repos/#{owner}/#{repo}/contents/#{path}"
       end
 
-      def add_access_token(url)
-        url + "?access_token=#{access_token}"
+      def authorization_params
+        return access_token_hash unless access_token.empty?
+        return client_id_secret_hash unless client_id.empty? && client_secret.empty?
       end
 
-      def add_client_id_and_secret(url)
-        url + "?client_id=#{client_id}&client_secret=#{client_secret}"
+      def access_token_hash
+        { 'access_token' => access_token }
+      end
+
+      def client_id_secret_hash
+        { 'client_id' => client_id, 'client_secret' => client_secret }
       end
     end
   end
