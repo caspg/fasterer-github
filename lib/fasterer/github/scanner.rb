@@ -67,10 +67,14 @@ module Fasterer
       def load_config_file
         path_to_config = File.join(Dir.pwd, CONFIG_FILE_NAME)
         if File.exist?(path_to_config)
-          YAML.load_file(path_to_config)
+          empty_config_hash.merge!(YAML.load_file(path_to_config))
         else
-          { SPEEDUPS_KEY => {}, EXCLUDE_PATHS_KEY => [] }
+          empty_config_hash
         end
+      end
+
+      def empty_config_hash
+        { SPEEDUPS_KEY => {}, EXCLUDE_PATHS_KEY => [] }
       end
     end
   end
