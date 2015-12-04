@@ -22,7 +22,7 @@ module Fasterer
       attr_reader :owner, :repo, :path, :client_id, :client_secret, :access_token
 
       def build_uri(path)
-        BASE_URI + "/repos/#{owner}/#{repo}/contents/#{path}"
+        URI.escape(BASE_URI + "/repos/#{owner}/#{repo}/contents/#{path}")
       end
 
       def authorization_params
