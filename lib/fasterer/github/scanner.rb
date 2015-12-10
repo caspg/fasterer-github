@@ -46,7 +46,7 @@ module Fasterer
       def analyze_code(data)
         analyzer = Fasterer::Github::AnalyzerExtension.new(data[:content64])
         analyzer.scan
-      rescue RubyParser::SyntaxError, Racc::ParseError, Timeout::Error
+      rescue RubyParser::SyntaxError, Racc::ParseError, Timeout::Error, RuntimeError
         output_composer.add_errors(data[:path])
       else
         output_composer.add_offences(analyzer.offences, data[:path])
